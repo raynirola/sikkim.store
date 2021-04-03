@@ -33,9 +33,16 @@ class ContactUs extends Component
     protected function getRules(): array
     {
         return [
-            'name' => ['required', 'max:32'],
+            'name' => ['required', 'max:32', 'regex:/^[\pL\s]+$/u'],
             'email' => ['required', 'email', 'email:rfc,dns', 'max:32'],
             'message' => ['required', 'min:20', 'max:1000']
+        ];
+    }
+
+    protected function getMessages(): array
+    {
+        return [
+            'name.regex' => 'The name may only contain letters and spaces.',
         ];
     }
 }

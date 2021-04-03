@@ -14,3 +14,18 @@
 .box-shadow {
     box-shadow: -0.0625rem 0 0.625rem 0 rgba(0, 0, 0, 0.07), 0.3125rem 1.25rem 2.5rem 0 rgba(0, 0, 0, 0.04);
 }
+@layer components {
+    .btn-scale {
+        @apply active:scale-95 transition ease-in-out duration-150
+    }
+}
+
+.background-filter {
+    /*filter: grayscale(1) contrast(1.2) opacity(0.4); */
+    -webkit-filter: blur(2px) grayscale(1) contrast(1.2) opacity(0.4);
+    -moz-filter: blur(2px) grayscale(1) contrast(1.2) opacity(0.4);
+    -o-filter: blur(2px) grayscale(1) contrast(1.2) opacity(0.4);
+    -ms-filter: blur(2px) grayscale(1) contrast(1.2) opacity(0.4);
+    filter: blur(2px)  grayscale(1) contrast(1.2) opacity(0.4);
+    background-color: rgba(0, 0, 0, 0.5);
+}

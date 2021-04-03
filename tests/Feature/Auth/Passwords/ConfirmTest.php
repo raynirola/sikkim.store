@@ -33,13 +33,13 @@ class ConfirmTest extends TestCase
 
         $this->followingRedirects()
             ->get('/must-be-confirmed')
-            ->assertSeeLivewire('auth.passwords.confirm');
+            ->assertSeeLivewire('user.auth.passwords.confirm');
     }
 
     /** @test */
     public function a_user_must_enter_a_password_to_confirm_it()
     {
-        Livewire::test('auth.passwords.confirm')
+        Livewire::test('user.auth.passwords.confirm')
             ->call('confirm')
             ->assertHasErrors(['password' => 'required']);
     }
@@ -47,28 +47,30 @@ class ConfirmTest extends TestCase
     /** @test */
     public function a_user_must_enter_their_own_password_to_confirm_it()
     {
-        $user = User::factory()->create([
-            'password' => Hash::make('password'),
-        ]);
+        $user = User::factory()->create();
+        auth('user')->login($user);
 
-        Livewire::test('auth.passwords.confirm')
+        Livewire::test('user.auth.passwords.confirm')
             ->set('password', 'not-password')
             ->call('confirm')
             ->assertHasErrors(['password' => 'password']);
+
+        Livewire::test('user.auth.passwords.confirm')
+            ->set('password', 'password')
+            ->call('confirm')
+            ->assertHasNoErrors();
     }
 
     /** @test */
     public function a_user_who_confirms_their_password_will_get_redirected()
     {
-        $user = User::factory()->create([
-            'password' => Hash::make('password'),
-        ]);
+        $user = User::factory()->create();
 
-        $this->be($user);
+        auth('user')->login($user);
 
         $this->withSession(['url.intended' => '/must-be-confirmed']);
 
-        Livewire::test('auth.passwords.confirm')
+        Livewire::test('user.auth.passwords.confirm')
             ->set('password', 'password')
             ->call('confirm')
             ->assertRedirect('/must-be-confirmed');

@@ -29,6 +29,13 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/web.php'));
 
             Route::middleware('web')
+                ->domain('www.'.config('services.domain.base'))
+                ->group(function (){
+                    Route::get('/', fn()=> redirect()->home());
+                    Route::get('{all}', fn()=> redirect()->home());
+                });
+
+            Route::middleware('web')
                 ->domain('seller.' . config('services.domain.base'))
                 ->name('seller.')
                 ->group(base_path('routes/seller_auth.php'));

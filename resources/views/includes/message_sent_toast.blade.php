@@ -1,4 +1,4 @@
-<div x-show="messageSent; $nextTick(() => setTimeout(() => messageSent = false, 4000))" @message-sent.window="messageSent = true" class="w-full fixed top-0 right-0 sm:top-20 sm:right-4 md:rounded-lg shadow box-shadow sm:max-w-sm border border-gray-200 z-10 bg-white"
+<div x-cloak x-show="messageSent; $nextTick(() => setTimeout(() => messageSent = false, 4000))" @message-sent.window="messageSent = true" class="w-full fixed top-0 right-0 sm:top-20 sm:right-4 md:rounded-lg shadow box-shadow sm:max-w-sm border border-gray-200 z-10 bg-white"
 
      x-transition:enter="transform transition ease-in-out duration-800"
      x-transition:enter-start="-translate-y-full sm:-translate-y-0 sm:translate-x-full"

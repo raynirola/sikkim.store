@@ -1,8 +1,11 @@
 <x-slot name="title">Confirm your password</x-slot>
-<div>
+<div class="flex flex-col h-screen sm:h-auto justify-end">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
+        <div class="fixed bottom-0 w-full sm:relative px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10 box-shadow">
             <div class="mb-5 flex flex-col items-center justify-center">
+                <a href="{{ route('home') }}" title="Sikkim Store Home Page" class="flex items-center justify-start" aria-label="Sikkim Store">
+                    <x-logo_type class="w-auto h-8"/>
+                </a>
                 <h2 class="text-sm font-semibold text-center text-gray-900 leading-9">
                     Password Confirm
                 </h2>
@@ -18,9 +21,17 @@
                     </label>
 
                     <div class="mt-1 rounded-md shadow-sm">
-                        <input wire:model.lazy="password" id="password" name="password" type="password" required
-                               autofocus
-                               class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('password') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror"/>
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            wire:model.defer="password"
+                            class="py-2.5 mt-1 block w-full rounded-md border-gray-300 focus:border-green-600 focus:bg-white focus:ring focus:ring-green-300 focus:ring-opacity-20 placeholder-gray-400 @error('password') border-red-300 focus:shadow-outline-red @enderror"
+                            placeholder="Enter password"
+                            autocomplete="recent-password"
+                            autofocus
+                            required
+                        />
                     </div>
 
                     @error('password')
@@ -28,22 +39,16 @@
                     @enderror
                 </div>
 
-                <div class="flex items-center justify-end mt-6">
-                    <div class="text-sm leading-5">
-                        <a href="{{ route('password.request') }}"
-                           class="font-medium text-green-600 hover:text-green-500 focus:outline-none focus:underline transition ease-in-out duration-150">
-                            Forgot your password?
-                        </a>
-                    </div>
-                </div>
-
                 <div class="mt-6">
-                    <span class="block w-full rounded-md shadow-sm">
-                        <button type="submit"
-                                class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700 transition duration-150 ease-in-out">
-                            Confirm password
-                        </button>
-                    </span>
+                    <button wire:loading.attr="disabled" wire:target="confirm" type="submit" class="w-full btn btn-icon btn-primary bg-green-600 hover:bg-green-700 disabled:opacity-50 py-3">
+                        <svg wire:loading wire:target="confirm" class="animate-spin mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="#ffffff" stroke-width="3px" fill="none"></circle>
+                            <path class="opacity-75" fill="#ffffff" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span wire:loading.remove wire:target="confirm">
+                                Confirm password
+                            </span>
+                    </button>
                 </div>
             </form>
         </div>

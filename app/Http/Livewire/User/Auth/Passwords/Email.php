@@ -33,13 +33,13 @@ class Email extends Component
      *
      * @return PasswordBroker
      */
-    public function broker()
+    public function broker(): PasswordBroker
     {
         return Password::broker('users');
     }
 
     public function render()
     {
-        return view('livewire.user.auth.passwords.email')->layout('layout.auth');
+        return view('livewire.user.auth.passwords.email')->layout('layout.auth', ['title' => 'Forgot password']);
     }
 }

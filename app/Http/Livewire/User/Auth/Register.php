@@ -9,6 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Auth\Events\Registered;
+use Str;
 
 class Register extends Component
 {
@@ -16,7 +17,6 @@ class Register extends Component
     public ?string $email = '';
     public ?string $password = '';
     public ?string $username = '';
-    public ?string $passwordConfirmation = '';
 
     public function register(): Redirector|RedirectResponse
     {
@@ -25,7 +25,7 @@ class Register extends Component
         $user = User::create([
             'email' => $this->email,
             'name' => $this->name,
-            'username' => $this->username,
+            'username' => Str::uuid(),
             'password' => Hash::make($this->password),
         ]);
 
@@ -41,22 +41,21 @@ class Register extends Component
         return [
             'name' => ['required'],
             'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'min:8', 'same:passwordConfirmation'],
-            'username' => ['unique:users', 'required', 'alpha_dash']
+            'password' => ['required', 'min:8'],
         ];
     }
 
     protected function getMessages(): array
     {
         return [
-            'email.unique' => 'Email already registered.'
+            'email.unique' => 'The email is not valid.'
         ];
     }
 
     public function render(): View
     {
         return view('livewire.user.auth.register')
-            ->layout('layout.auth', ['title' => 'User Registration']);
+            ->layout('layout.auth', ['title' => 'Create free account, register now.']);
     }
 
 }

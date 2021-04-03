@@ -1,80 +1,59 @@
-<div x-data="{ contactModal: false }" x-on:message-sent.window="contactModal = false" class="w-full md:w-max">
-
-    <!--Contact Button-->
-    <a href="" id="contactButton" @click.prevent="contactModal = true" x-ref="contactButton" class="hidden md:block hover:text-blue-600">Contact</a>
-
-    <!--Contact Modal Starts-->
-    <div x-show.immediate="contactModal, $nextTick(() => $refs.inputName.focus())" class="fixed inset-0 bg-black bg-opacity-80 z-10 flex items-end md:items-center justify-center bg-blur px-2 md:px-0 pb-2 md:pb-0">
-
-        <div x-show.transition.duration.300="contactModal" class="relative max-w-lg w-full p-4 md:p-10 bg-white rounded-md text-left" @click.away="contactModal = false" @keydown.window.escape="contactModal = false">
-            <p class="uppercase text-blue-600 font-bold mb-6 text-center">Contact</p>
-
-            <form action="" class="text-gray-700">
-                <div>
-                    <div>
-                        <label for="name" class="text-sm font-medium text-gray-700">Full Name:</label>
-                    </div>
-                    <div class="mt-1">
-                        <input x-ref="inputName" wire:model.defer="name" type="text" id="name"
-                               placeholder="e.g. John Doe"
-                               class="w-full rounded-md border-gray-400 @error('name') border-red-400 @enderror placeholder-gray-400"
-                               autofocus autocomplete="name">
-                    </div>
-                    @error('name')
-                    <p class="mt-1 px-0.5 text-xs text-red-600 font-medium">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div class="mt-4">
-                    <div>
-                        <label for="email" class="text-sm font-medium text-gray-700">Email Address:</label>
-                    </div>
-                    <div class="mt-1">
-                        <input wire:model.defer="email" type="email" id="email" placeholder="e.g. johndoe@example.com"
-                               class="w-full rounded-md border-gray-400 @error('email') border-red-400 @enderror placeholder-gray-400"
-                               autocomplete="email">
-                    </div>
-                    @error('email')
-                    <p class="mt-1 px-0.5 text-xs text-red-600 font-medium">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div class="mt-4">
-                    <div>
-                        <label for="message" class="text-sm font-medium text-gray-700">Message:</label>
-                    </div>
-                    <div class="mt-1">
-                        <textarea wire:model.defer="message" type="email" id="message"
-                                  placeholder="Something interesting perhaps."
-                                  class="w-full rounded-md resize-none h-32 border-gray-400 @error('message') border-red-400 @enderror placeholder-gray-400"></textarea>
-                    </div>
-                    @error('message')
-                    <p class="-mt-1 px-0.5 text-xs text-red-600 font-medium">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div class="mt-4">
-                    <button wire:click.prevent="sendMessage" type="submit"
-                            class="focus:outline-none flex w-full items-center justify-center border border-blue-600 bg-blue-600 hover:bg-blue-500 text-white py-2.5 rounded-md font-medium">
-                        Send Message
-                    </button>
-                </div>
-
-                <div class="mt-2 md:hidden">
-                    <button type="button" @click.prevent="contactModal = false"
-                            class="focus:outline-none flex w-full items-center justify-center border border-gray-800 bg-gray-50 text-gray-800 py-2.5 rounded-md font-normal">
-                        Nevermind
-                    </button>
-                </div>
-            </form>
-            <!--End Contact Form-->
-
-            <div
-                class="hidden absolute -mt-1 top-0 left-0 md:flex items-center justify-center transform -translate-y-full">
-                <p class="text-white text-sm">Press ESC or click away to close.</p>
-            </div>
+<div>
+    <form wire:submit.prevent="sendMessage">
+        @csrf
+        <div class="relative mb-4">
+            <label for="name" class="leading-7 text-sm text-gray-600">Name</label>
+            <input
+                id="name"
+                type="text"
+                wire:model.defer="name"
+                class="py-2.5 mt-1 block w-full rounded-md bg-white border-gray-300 focus:border-green-600 focus:bg-white focus:ring focus:ring-green-300 focus:ring-opacity-20 placeholder-gray-400 @error('name') border-red-600 @enderror"
+                placeholder="e.g. Man Maya Gurung"
+                autocomplete="name"
+                autofocus
+                required
+            />
+            @error('name')
+            <p class="mt-1 px-0.5 text-xs text-red-600 font-medium">{{ $message }}</p>
+            @enderror
         </div>
-    </div>
-    <!--End Contact Modal-->
-</div>
 
+        <div class="relative mb-4">
+            <label for="email" class="leading-7 text-sm text-gray-600">Email</label>
+            <input
+                id="email"
+                type="email"
+                wire:model.defer="email"
+                class="py-2.5 mt-1 block w-full rounded-md bg-white border-gray-300 focus:border-green-600 focus:bg-white focus:ring focus:ring-green-300 focus:ring-opacity-20 placeholder-gray-400 @error('email') border-red-600 @enderror"
+                placeholder="e.g. mmaya@sikkim.store"
+                autocomplete="email"
+                required
+            />
+            @error('email')
+            <p class="mt-1 px-0.5 text-xs text-red-600 font-medium">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <div class="relative mb-4">
+            <label for="message" class="leading-7 text-sm text-gray-600">Message</label>
+            <textarea id="message"
+                      wire:model.defer="message"
+                      class="py-2.5 mt-1 block w-full bg-white rounded-md border border-gray-300 focus:border-green-600 focus:ring focus:ring-green-300 focus:ring-opacity-20 h-32  resize-none leading-6 transition-colors duration-200 ease-in-out placeholder-gray-400 @error('message') border-red-600 @enderror"
+                      placeholder="Something interesting perhaps"></textarea>
+            @error('message')
+            <p class="mt-1 px-0.5 text-xs text-red-600 font-medium">{{ $message }}</p>
+            @enderror
+        </div>
+
+        <button wire:loading.attr="disabled" wire:target="sendMessage" type="submit" class="block w-full btn btn-default bg-green-600 hover:bg-green-700 py-3 text-white text-sm uppercase disabled:opacity-50">
+            <svg wire:loading wire:target="sendMessage" class="animate-spin mr-3 h-5 w-5 text-white" fill="none"
+                 viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="#ffffff" stroke-width="3px"
+                        fill="none"></circle>
+                <path class="opacity-75" fill="#ffffff"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span wire:loading.remove wire:target="sendMessage">Send Message</span>
+        </button>
+    </form>
+</div>

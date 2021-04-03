@@ -1,122 +1,108 @@
-<div>
-    <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <div class="px-4 py-8 bg-white md:shadow sm:rounded-lg sm:px-10">
-
-            <div class="mb-5 flex flex-col items-center justify-center">
-                <a href="{{ route('home') }}" class="bg-gray-200 h-10 w-10 flex items-center justify-center rounded-full">
-                    <svg class="w-5 h-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                         stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
-                    </svg>
-                </a>
-                <h2 class="text-sm font-semibold text-center text-gray-900 leading-9">
-                    Create a new account
-                </h2>
-            </div>
-
-            <form wire:submit.prevent="register">
-                <div>
-                    <label for="name" class="block text-sm font-medium text-gray-700 leading-5">
-                        Name
-                    </label>
-
-                    <div class="mt-1 rounded-md shadow-sm">
-                        <input wire:model.defer="name" id="name" type="text" required autofocus
-                               class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('name') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror"/>
-                    </div>
-
+<section class="grid grid-cols-1 lg:grid-cols-2">
+    <div class="sm:min-h-screen flex flex-col sm:justify-center px-4 pt-6 pb-8 sm:py-20 bg-white xl:py-32">
+        <div class="mx-auto w-full md:w-3/5 lg:w-4/5 xl:w-3/5">
+            <a href="{{ route('home') }}" title="Sikkim Store Home Page" class="flex items-center justify-start" aria-label="Sikkim Store">
+                <x-logo class="w-auto h-8"/>
+            </a>
+            <h1 class="mt-8 text-xl font-extrabold leading-snug tracking-tight text-left text-gray-900">
+                One account for all the shops, register now.
+            </h1>
+            <form wire:submit.prevent="register" class="mt-4 space-y-5">
+                <label class="block">
+                    <span class="block mb-1 text-xs font-medium text-gray-700">Name</span>
+                    <input
+                        type="text"
+                        wire:model.defer="name"
+                        class="py-2.5 mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-green-600 focus:bg-white focus:ring focus:ring-green-300 focus:ring-opacity-20 placeholder-gray-400"
+                        placeholder="e.g. Man Maya Gurung"
+                        autocomplete="name"
+                        inputmode="text"
+                        required
+                    />
                     @error('name')
                     <p class="mt-2 text-xs text-red-600">{{ $message }}</p>
                     @enderror
-                </div>
-
-                <div class="mt-6">
-                    <label for="username" class="block text-sm font-medium text-gray-700 leading-5">
-                        Username
-                    </label>
-
-                    <div class="mt-1 rounded-md shadow-sm">
-                        <input wire:model.defer="username" id="username" type="text" required
-                               class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('name') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror"/>
-                    </div>
-
-                    @error('username')
-                    <p class="mt-2 text-xs text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div class="mt-6">
-                    <label for="email" class="block text-sm font-medium text-gray-700 leading-5">
-                        Email address
-                    </label>
-
-                    <div class="mt-1 rounded-md shadow-sm">
-                        <input wire:model.defer="email" id="email" type="email" required
-                               class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('email') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror"/>
-                    </div>
-
+                </label>
+                <label class="block">
+                    <span class="block mb-1 text-xs font-medium text-gray-700">Email</span>
+                    <input
+                        type="email"
+                        wire:model.defer="email"
+                        class="py-2.5 mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-green-600 focus:bg-white focus:ring focus:ring-green-300 focus:ring-opacity-20 placeholder-gray-400"
+                        placeholder="e.g. manmayagurung@example.net"
+                        autocomplete="username"
+                        inputmode="email"
+                        required
+                    />
                     @error('email')
                     <p class="mt-2 text-xs text-red-600">{{ $message }}</p>
                     @enderror
-                </div>
-
-                <div class="mt-6">
-                    <label for="password" class="block text-sm font-medium text-gray-700 leading-5">
-                        Password
-                    </label>
-
-                    <div class="mt-1 rounded-md shadow-sm">
-                        <input wire:model.defer="password" id="password" type="password" required
-                               class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('password') border-red-300 text-red-900 placeholder-red-300 focus:border-red-300 focus:shadow-outline-red @enderror"/>
-                    </div>
-
+                </label>
+                <label class="block">
+                    <span class="block mb-1 text-xs font-medium text-gray-700">Password</span>
+                    <input
+                        type="password"
+                        wire:model.defer="password"
+                        class="py-2.5 mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-green-600 focus:bg-white focus:ring focus:ring-green-300 focus:ring-opacity-20 placeholder-gray-400"
+                        placeholder="Enter password"
+                        autocomplete="new-password"
+                        required
+                    />
                     @error('password')
                     <p class="mt-2 text-xs text-red-600">{{ $message }}</p>
                     @enderror
-                </div>
-
-                <div class="mt-6">
-                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700 leading-5">
-                        Confirm Password
-                    </label>
-
-                    <div class="mt-1 rounded-md shadow-sm">
-                        <input wire:model.defer="passwordConfirmation"
-                               id="password_confirmation" type="password" required
-                               class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 appearance-none rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"/>
-                    </div>
-                </div>
-
-                <div class="mt-6">
-                    <div class="block w-full rounded-md shadow-sm">
-                        <button wire:loading.remove wire:target="register" type="submit"
-                                class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white  border border-transparent rounded-md  focus:outline-none  bg-green-600 hover:bg-green-500 focus:border-green-700 focus:shadow-outline-green active:bg-green-700 transition duration-150 ease-in-out">
-                            Register
-                        </button>
-                        <div wire:loading wire:target="register"
-                             class="w-full px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md bg-green-500 cursor-wait ">
-                            <div class="flex items-center justify-center">
-                                <svg class="animate-spin mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
-                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="#ffffff"
-                                            stroke-width="3px" fill="none"></circle>
-                                    <path class="opacity-75" fill="#ffffff"
-                                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                </svg>
-                                <div>
-                                    <p>Please wait.... </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </label>
+                <button wire:loading.attr="disabled" wire:target="register" type="submit"
+                        class="w-full btn btn-icon btn-primary btn-lg bg-green-600 hover:bg-green-700 disabled:opacity-50">
+                    <svg wire:loading wire:target="register" class="animate-spin mr-3 h-5 w-5 text-white" fill="none"
+                         viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="#ffffff"
+                                stroke-width="3px" fill="none"></circle>
+                        <path class="opacity-75" fill="#ffffff"
+                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span wire:loading.remove wire:target="register">Register</span>
+                </button>
             </form>
-            <div class="mt-6 text-center">
-                <a href="{{ route('login') }}"
-                   class="text-sm font-medium text-green-600 hover:text-green-500 focus:outline-none focus:underline transition ease-in-out duration-150">
-                    Or sign in to your account.
-                </a>
+            <div class="mt-8 space-y-8">
+                <div class="text-center border-b border-gray-200" style="line-height: 0px">
+                    <span class="p-2 text-xs font-semibold tracking-wide text-gray-600 uppercase bg-white"
+                          style="line-height: 0px">Or</span>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <a href="#" class="py-3 btn btn-icon btn-google">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="mr-1">
+                            <path
+                                d="M20.283,10.356h-8.327v3.451h4.792c-0.446,2.193-2.313,3.453-4.792,3.453c-2.923,0-5.279-2.356-5.279-5.28	c0-2.923,2.356-5.279,5.279-5.279c1.259,0,2.397,0.447,3.29,1.178l2.6-2.599c-1.584-1.381-3.615-2.233-5.89-2.233	c-4.954,0-8.934,3.979-8.934,8.934c0,4.955,3.979,8.934,8.934,8.934c4.467,0,8.529-3.249,8.529-8.934	C20.485,11.453,20.404,10.884,20.283,10.356z"
+                            />
+                        </svg>
+                        <span class="sr-only">Continue with</span> Google
+                    </a>
+                    <a href="#" class="py-3 btn btn-icon btn-dark">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                             fill="currentColor" class="mr-1">
+                            <path
+                                d="M19.665,16.811c-0.287,0.664-0.627,1.275-1.021,1.837c-0.537,0.767-0.978,1.297-1.316,1.592	c-0.525,0.482-1.089,0.73-1.692,0.744c-0.432,0-0.954-0.123-1.562-0.373c-0.61-0.249-1.17-0.371-1.683-0.371	c-0.537,0-1.113,0.122-1.73,0.371c-0.616,0.25-1.114,0.381-1.495,0.393c-0.577,0.025-1.154-0.229-1.729-0.764	c-0.367-0.32-0.826-0.87-1.377-1.648c-0.59-0.829-1.075-1.794-1.455-2.891c-0.407-1.187-0.611-2.335-0.611-3.447	c0-1.273,0.275-2.372,0.826-3.292c0.434-0.74,1.01-1.323,1.73-1.751C7.271,6.782,8.051,6.563,8.89,6.549	c0.46,0,1.063,0.142,1.81,0.422s1.227,0.422,1.436,0.422c0.158,0,0.689-0.167,1.593-0.498c0.853-0.307,1.573-0.434,2.163-0.384	c1.6,0.129,2.801,0.759,3.6,1.895c-1.43,0.867-2.137,2.08-2.123,3.637c0.012,1.213,0.453,2.222,1.317,3.023	c0.392,0.372,0.829,0.659,1.315,0.863C19.895,16.236,19.783,16.529,19.665,16.811L19.665,16.811z M15.998,2.38	c0,0.95-0.348,1.838-1.039,2.659c-0.836,0.976-1.846,1.541-2.941,1.452c-0.014-0.114-0.021-0.234-0.021-0.36	c0-0.913,0.396-1.889,1.103-2.688c0.352-0.404,0.8-0.741,1.343-1.009c0.542-0.264,1.054-0.41,1.536-0.435	C15.992,2.127,15.998,2.254,15.998,2.38L15.998,2.38z"
+                            />
+                        </svg>
+                        <span class="sr-only">Continue with</span> Apple
+                    </a>
+                </div>
+            </div>
+            <div class="mt-12 text-sm font-normal text-gray-700">
+                Already have an account?
+                <a href="{{ route('login') }}" class="text-green-600 hover:text-green-700 font-medium hover:underline">Login</a>
+            </div>
+            <div class="mt-8 text-sm font-normal space-x-1">
+                <a href="#" class="text-xs text-purple-700 hover:text-black">Privacy Policy</a>
+                <span>&bullet;</span>
+                <a href="#" class="text-xs text-purple-700 hover:text-black">Terms & Conditions</a>
             </div>
         </div>
     </div>
-</div>
+
+    <div
+        class="relative hidden lg:block sm:min-h-screen bg-cover object-center"
+        style="background-image: url('https://images.unsplash.com/photo-1582308281127-44c931038160?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1293&q=80')">
+    </div>
+</section>

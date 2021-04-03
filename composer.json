@@ -14,9 +14,13 @@
         "guzzlehttp/guzzle": "^7.1",
         "laravel/framework": "^v8.33",
         "laravel/tinker": "^2.0",
-        "livewire/livewire": "^v2.2.9"
+        "livewire/livewire": "^v2.2.9",
+        "ext-intl": "*",
+        "ext-gd": "*",
+        "ext-json": "*"
     },
     "require-dev": {
+        "brianium/paratest": "^6.2",
         "facade/ignition": "^2.3.6",
         "fzaninotto/faker": "^v1.9.1",
         "mockery/mockery": "^1.4",

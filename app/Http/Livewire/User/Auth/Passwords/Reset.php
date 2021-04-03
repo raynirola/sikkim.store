@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\User\Auth\Passwords;
 
-use App\Providers\RouteServiceProvider;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +21,8 @@ class Reset extends Component
     public $password;
 
     public $passwordConfirmation;
+
+    protected $queryString = ['email'];
 
     public function mount($token)
     {
@@ -57,7 +59,7 @@ class Reset extends Component
 
         if ($response == Password::PASSWORD_RESET) {
             session()->flash(trans($response));
-            return redirect(route('user.home', Auth::guard('user')->user()->username));
+            return redirect()->route('user.home', Auth::guard('user')->user()->username);
         }
 
         $this->addError('email', trans($response));
@@ -68,7 +70,7 @@ class Reset extends Component
      *
      * @return PasswordBroker
      */
-    public function broker()
+    public function broker(): PasswordBroker
     {
         return Password::broker('users');
     }
@@ -78,12 +80,12 @@ class Reset extends Component
      *
      * @return StatefulGuard
      */
-    protected function guard()
+    protected function guard(): StatefulGuard
     {
         return Auth::guard('user');
     }
 
-    public function render()
+    public function render(): View
     {
         return view('livewire.user.auth.passwords.reset')->layout('layout.auth');
     }

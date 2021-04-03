@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class RedirectIfAuthenticated
 {
@@ -16,15 +15,12 @@ class RedirectIfAuthenticated
      * @param string|null $guard
      * @return mixed
      */
-    public function handle(Request $request, Closure $next, $guard = null)
+    public function handle(Request $request, Closure $next, $guard = null): mixed
     {
-        if (Auth::guard($guard)->check()) {
+        if (!auth($guard)->check()) return $next($request);
 
-            return $guard === "store"
-                ? redirect()->route('store.admin.dashboard', Auth::guard('store')->user())
-                : redirect()->route('seller.login');
-        }
+        if (!$guard === 'user') return redirect()->route('store.admin.dashboard', auth()->guard($guard)->user());
 
-        return $next($request);
+        return redirect()->route('user.profile');
     }
 }

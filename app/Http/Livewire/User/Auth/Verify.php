@@ -14,8 +14,10 @@ class Verify extends Component
         if (Auth::user()->hasVerifiedEmail()) {
             return redirect(route('home'));
         }
-        SendVerificationEmailJob::dispatch(auth()->user());
+        SendVerificationEmailJob::dispatch(auth()->guard('user')->user());
+
         $this->emit('resent');
+
         session()->flash('resent');
     }
 

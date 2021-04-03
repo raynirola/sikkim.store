@@ -23,7 +23,7 @@ class Login extends Component
             $this->addError('email', trans('auth.failed'));
             return null;
         }
-        return redirect()->intended(route('user.home'));
+        return redirect()->intended()->route('user.home');
     }
 
     public function render(): Renderable

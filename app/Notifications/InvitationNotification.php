@@ -49,7 +49,7 @@ class InvitationNotification extends Notification implements ShouldQueue
         return (new MailMessage)
             ->line('Hi, thanks for singing up for early access.')
             ->line('We have rolled out our services to selected group for now, and you are in.')
-            ->action('Create Account', url(route('store.register')))
+            ->action('Create Account', url(route('seller.register', ['email' => $this->invitation->email])))
             ->line('Invitation Code: ' . $this->invitation->code)
             ->line('Your email address: ' . $this->invitation->email)
             ->line('')

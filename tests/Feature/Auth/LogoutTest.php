@@ -15,12 +15,13 @@ class LogoutTest extends TestCase
     public function an_authenticated_user_can_log_out()
     {
         $user = User::factory()->create();
-        $this->be($user);
+
+        auth()->guard('user')->login($user);
 
         $this->post(route('logout'))
             ->assertRedirect(route('home'));
 
-        $this->assertFalse(Auth::check());
+        $this->assertFalse(Auth::guard('user')->check());
     }
 
     /** @test */
@@ -29,6 +30,6 @@ class LogoutTest extends TestCase
         $this->post(route('logout'))
             ->assertRedirect(route('login'));
 
-        $this->assertFalse(Auth::check());
+        $this->assertFalse(Auth::guard('user')->check());
     }
 }

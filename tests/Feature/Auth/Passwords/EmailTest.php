@@ -12,17 +12,17 @@ class EmailTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_view_password_request_page()
+    public function can_view_password_reset_request_page()
     {
         $this->get(route('password.request'))
             ->assertSuccessful()
-            ->assertSeeLivewire('auth.passwords.email');
+            ->assertSeeLivewire('user.auth.passwords.email');
     }
 
     /** @test */
     public function a_user_must_enter_an_email_address()
     {
-        Livewire::test('auth.passwords.email')
+        Livewire::test('user.auth.passwords.email')
             ->call('sendResetPasswordLink')
             ->assertHasErrors(['email' => 'required']);
     }
@@ -30,7 +30,7 @@ class EmailTest extends TestCase
     /** @test */
     public function a_user_must_enter_a_valid_email_address()
     {
-        Livewire::test('auth.passwords.email')
+        Livewire::test('user.auth.passwords.email')
             ->set('email', 'email')
             ->call('sendResetPasswordLink')
             ->assertHasErrors(['email' => 'email']);
@@ -41,7 +41,7 @@ class EmailTest extends TestCase
     {
         $user = User::factory()->create();
 
-        Livewire::test('auth.passwords.email')
+        Livewire::test('user.auth.passwords.email')
             ->set('email', $user->email)
             ->call('sendResetPasswordLink')
             ->assertNotSet('emailSentMessage', false);

@@ -24,23 +24,35 @@ class VerifyTest extends TestCase
             'email_verified_at' => null,
         ]);
 
-        Auth::login($user);
+        auth()->guard('user')->login($user);
 
         $this->get(route('verification.notice'))
             ->assertSuccessful()
-            ->assertSeeLivewire('auth.verify');
+            ->assertSeeLivewire('user.auth.verify');
+    }
+
+    /** @test */
+    public function verified_user_cannot_visit_verify_route()
+    {
+        $user = User::factory()->create();
+        auth()->guard('user')->login($user);
+        $this->get(route('verification.notice'))
+            ->assertRedirect(route('home'));
     }
 
     /** @test */
     public function can_resend_verification_email()
     {
-        $user = User::factory()->create();
+        $user = User::factory()->create(
+            ['email_verified_at' => null]
+        );
 
-        Livewire::actingAs($user);
+        auth()->guard('user')->login($user);
 
-        Livewire::test('auth.verify')
+        Livewire::test('user.auth.verify')
             ->call('resend')
-            ->assertEmitted('resent');
+            ->assertEmitted('resent')
+            ->assertSet('resent', null);
     }
 
     /** @test */
@@ -50,7 +62,7 @@ class VerifyTest extends TestCase
             'email_verified_at' => null,
         ]);
 
-        Auth::login($user);
+        Auth::guard('user')->login($user);
 
         $url = URL::temporarySignedRoute('verification.verify', Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)), [
             'id' => $user->getKey(),
@@ -58,7 +70,7 @@ class VerifyTest extends TestCase
         ]);
 
         $this->get($url)
-            ->assertRedirect(route('home'));
+            ->assertRedirect(route('user.home', $user));
 
         $this->assertTrue($user->hasVerifiedEmail());
     }

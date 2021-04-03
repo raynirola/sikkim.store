@@ -1,8 +1,11 @@
-<div>
+<div class="flex flex-col h-screen sm:h-auto justify-end">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
+        <div class="fixed bottom-0 w-full sm:relative px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10 box-shadow">
 
             <div class="mb-5 flex flex-col items-center justify-center">
+                <a href="{{ route('home') }}" title="Sikkim Store Home Page" class="flex items-center justify-start" aria-label="Sikkim Store">
+                    <x-logo_type class="w-auto h-8"/>
+                </a>
                 <h2 class="text-sm font-semibold text-center text-gray-900 leading-9">
                     Verify your email address
                 </h2>

@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Str;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -42,6 +43,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getAvatarAttribute(): string
     {
-        return 'https://ui-avatars.com/api/?background=0D8ABC&color=fff&name=' . $this->attributes['name'];
+        return 'https://avatar.tobi.sh/'.md5($this->email).'.svg?text='.Str::substr($this->first_name, 0, 1).Str::substr($this->last_name, 0, 1);
     }
 }

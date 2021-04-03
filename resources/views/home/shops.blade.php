@@ -37,14 +37,4 @@
         <livewire:component.all-stores/>
     </div>
 
-    <x-shop.section class="bg-gradient-to-tr from-blue-500 to-blue-600 py-4">
-        <div class="text-white flex flex-col md:flex-row items-center justify-between">
-            <p class="text-sm font-medium max-w-md text-center md:text-left md:max-w-lg lg:max-w-3xl mb-4 md:mb-0">
-                Still confused? We are available 24x7 to assist you, just hit that support whenever you feel like. 👉🏼
-            </p>
-            <a href="{{ '' }}"
-               class="bg-white hover:bg-gray-200 text-gray-700 rounded-md px-3 py-2 text-sm">Support</a>
-        </div>
-    </x-shop.section>
-
 </x-layout.home>

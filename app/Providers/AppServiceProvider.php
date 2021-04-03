@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use App\Models\Preorder;
 use App\Observers\PreorderObserver;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,6 +26,5 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Preorder::observe(PreorderObserver::class);
-        URL::forceScheme('https');
     }
 }
